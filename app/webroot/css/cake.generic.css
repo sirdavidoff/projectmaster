@@ -1,0 +1,1007 @@
+.cake-sql-log {
+	display: none;
+}
+
+* {
+margin:0;
+padding:0;
+}
+
+/* General Style Info */
+body {
+	color: #333;
+	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
+	font-size:13px;
+	margin: 0;
+}
+a {
+	background-color: inherit;
+	color: #003d4c;
+	text-decoration: underline;
+	font-weight: bold;
+}
+a:hover {
+	background-color: inherit;
+	color: #003d4c;
+	text-decoration:none;
+}
+a img {
+	border:none;
+}
+h1, .h1b, .h1c, h2, h3, h4 {
+	background-color: inherit;
+	font-weight: normal;
+}
+.h1b a:link, .h1c a:link, .h1c a:visited, .h1c a:hover {
+	font-weight: normal;
+	text-decoration: none;
+}
+h1 {
+	color: #003d4c;
+	font-size: 180%;
+	margin: 0.1em 0;
+}
+.h1b {
+	color: #003d4c;
+	font-size: 130%;
+	margin: 0.1em 0;
+}
+.h1c {
+	color: #003d4c;
+	font-size: 140%;
+	margin: 0.1em 0;
+}
+h2 {
+	color: #e32;
+	font-family:'Gill Sans','lucida grande',helvetica, arial, sans-serif;
+	font-size: 160%;
+	margin: 0.3em 0;
+	padding-top: 1em;
+}
+h3 {
+	color: #e32;
+	font-family:'Gill Sans','lucida grande',helvetica, arial, sans-serif;
+	font-size: 150%;
+	margin-bottom: 0.3em;
+}
+h4 {
+	color: #c6c65b;
+	font-weight: normal;
+	padding-top: 0.5em;
+}
+ul, li {
+	margin: 0 12px;
+}
+
+/* Layout */
+#container {
+	text-align: left;
+}
+
+#header{
+	padding-top: 10px;
+	background-color: #003d4c;
+}
+#header h1 {
+	background: url('../img/cake.icon.gif') no-repeat left;
+	color: #ffffff;
+	font-size: 110%;
+	padding: 0px 30px;
+}
+#header h1 a {
+	color: #ffffff;
+	background: #003d4c;
+	font-weight: normal;
+	text-decoration: none;
+}
+#header h1 a:hover {
+	color: #ffffff;
+	background: #003d4c;
+	text-decoration: underline;
+}
+#headerTabs {
+	padding: 0px 35px;
+}
+.headerTab {
+	float: left;
+	padding: 4px;
+	background: #D1DFD6;
+	margin-right: 10px;
+	margin-top: 4px;
+}
+.headerTabBlank {
+	float: left;
+	padding: 4px;
+	margin-right: 10px;
+	margin-top: 4px;
+}
+.activeTab {
+	background: white;
+	/*background: #FFBD6F;*/
+	color: black;
+	font-weight: bold;
+	padding: 6px;
+	margin-top: 0px;
+}
+.activeTabDashboard {
+	background: white;
+	color: black;
+	font-weight: bold;
+	padding: 6px;
+	margin-top: 0px;
+}
+.headerRightTab {
+	float: right;
+	margin-top: 4px;
+	margin-right: 5px; 
+	color: white;
+}
+.headerRightTab a, .headerTabBlank a {
+	color: #D1DFD6;
+}
+#content{
+	background-color: #fff;
+	clear: both;
+	color: #333;
+	padding: 0px 40px 40px 40px;
+	overflow: auto;
+}
+#footer {
+	background-color: #fff;
+	clear: both;
+	padding: 6px 10px;
+	text-align: right;
+}
+
+table {
+	font-size: 100%;
+}
+
+/* Tables */
+/*table {
+	background-color: #fff;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	clear: both;
+	color: #333;
+	margin-bottom: 10px;
+	width: 100%;
+}
+th {
+	background-color: #f2f2f2;
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #bbb;
+	border-bottom: 1px solid #bbb;
+	text-align: center;
+}
+
+th a {
+	display: block;
+	padding: 2px 4px;
+	text-decoration: none;
+}
+
+th a:hover {
+	background-color: #ccc;
+	color: #333;
+	text-decoration: none;
+}
+
+table tr td {
+	background: #fff;
+	border-right: 1px solid #ccc;
+	padding: 4px;
+	text-align: center;
+	vertical-align: top;
+}
+table tr.altrow td {
+	background: #f4f4f4;
+}*/
+td.actions {
+	text-align: center;
+	white-space: nowrap;
+}
+td.actions a {
+	display: inline;
+	margin: 0px 6px;
+}
+.cakeSqlLog table {
+	background: #f4f4f4;
+}
+.cakeSqlLog td {
+	padding: 4px 8px;
+	text-align: left;
+}
+
+/* Paging */
+div.paging {
+	color: #ccc;
+	margin-bottom: 2em;
+}
+div.paging div.disabled {
+	color: #ddd;
+	display: inline;
+}
+
+/* Scaffold View */
+dl {
+	line-height: 2em;
+	margin: 0em 0em;
+	width: 60%;
+}
+dl.altrow {
+	background: #f4f4f4;
+}
+dt {
+	font-weight: bold;
+	padding-left: 4px;
+	vertical-align: top;
+}
+dd {
+	margin-left: 10em;
+	margin-top: -2em;
+	vertical-align: top;
+}
+
+/* Forms */
+form {
+	clear: both;
+	padding: 0;
+	width: 100%;
+}
+fieldset {
+	border: 1px solid #ccc;
+	margin-top: 30px;
+	padding: 16px 20px;
+}
+fieldset legend {
+	color: #e32;
+	font-size: 160%;
+	font-weight: bold;
+}
+fieldset fieldset legend {
+	font-size: 120%;
+	font-weight: normal;
+}
+form div {
+	/*clear: both;
+	margin-bottom: 1em;
+	padding: .5em;
+	vertical-align: text-top;*/
+}
+form div.input {
+	color: #444;
+}
+form div.required {
+	color: #333;
+	font-weight: bold;
+}
+form div.submit {
+	display: inline;
+	/*border: 0;
+	clear: both;
+	margin-top: 10px;
+	margin-left: 140px;*/
+}
+label {
+	display: block;
+	font-size: 110%;
+	padding-right: 20px;
+}
+input, textarea {
+	/*clear: both;*/
+	/*display: block;*/
+	font-size: 100%;
+	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
+	padding: 2px;
+	margin: 0px;
+	width: 100%;
+	border: 1px solid #DFAC53;
+	background: #FFF8AF;
+}
+select {
+	clear: both;
+	font-size: 100%;
+	vertical-align: text-bottom;
+	border: 1px solid #DFAC53;
+	background: #FFF8AF;
+}
+select[multiple=multiple] {
+	width: 100%;
+}
+option {
+	font-size: 120%;
+	padding: 0 3px;
+}
+input[type=hidden] {
+	
+}
+input[type=checkbox] {
+	clear: left;
+	float: left;
+	margin: 0px 6px 7px 2px;
+	width: auto;
+}
+input[type=submit] {
+	color: white;
+	background: #EE3322;
+	border: 1px solid red;
+	display: inline;
+	font-size: 100%;
+	padding: 2px 5px;
+	width: auto;
+	vertical-align: bottom;
+}
+/* same as above, but for IE6 */
+.formButton {
+	color: white;
+	background: #EE3322;
+	border: 1px solid red;
+	display: inline;
+	font-size: 100%;
+	padding: 2px 5px;
+	width: auto;
+	vertical-align: bottom;
+}
+
+/* Notices and Errors */
+div.message {
+	clear: both;
+	color: #900;
+	font-size: 140%;
+	font-weight: bold;
+	margin: 1em 0;
+}
+div.error-message {
+	clear: both;
+	color: #900;
+	font-weight: bold;
+}
+div.error em {
+	font-size: 140%;
+	color: #003d4c;
+}
+span.notice {
+	background-color: #c6c65b;
+	color: #fff;
+	display: block;
+	font-size: 140%;
+	padding: 0.5em;
+	margin: 1em 0;
+}
+/*  Actions  */
+div.index div.actions {
+	clear: both;
+	margin-top: .4em;
+	text-align: left;
+}
+div.view div.actions {
+	clear: both;
+	margin-top: .4em;
+	text-align: left;
+	width: 60%;
+}
+div.actions ul {
+	margin: 0px 0;
+	padding: 0;
+}
+div.actions li {
+	display: inline;
+	list-style-type: none;
+	line-height: 2em;
+	margin: 0 2em 0 0;
+	white-space: nowrap;
+}
+div.actions ul li a {
+	color: #003d4c;
+	text-decoration: none;
+}
+div.actions ul li a:hover {
+	color: #333;
+	text-decoration: underline;
+}
+
+/* Related */
+div.related {
+	clear: both;
+	display: block;
+}
+
+/* Debugging */
+pre {
+	color: #000;
+	background: #f0f0f0;
+	padding: 1em;
+}
+
+pre.cake-debug {
+	background: #ffcc00;
+	font-size: 120%;
+	line-height: 18px;
+	margin: 4px 2px;
+	overflow: auto;
+	position: relative;
+}
+div.cake-stack-trace {
+	background: #fff;
+	color: #333;
+	margin: 4px 2px;
+	padding: 4px;
+	font-size: 120%;
+	line-height: 18px;
+	overflow: auto;
+	position: relative;
+}
+div.cake-code-dump pre {
+	position: relative;
+	overflow: auto;
+}
+div.cake-stack-trace pre, div.cake-code-dump pre {
+	color: #000000;
+	background-color: #F0F0F0;
+	border: 1px dotted #606060;
+	margin: 4px 2px;
+	padding: 4px;
+	overflow: auto;
+}
+div.cake-code-dump pre, div.cake-code-dump pre code {
+	clear: both;
+	font-size: 12px;
+	line-height: 5px;
+	margin: 4px 2px;
+	padding: 4px;
+	overflow: auto;
+}
+div.cake-code-dump span.code-highlight {
+	background-color: #FFFF00;
+}
+
+/************ CUSTOM STUFF *****************/
+
+.flashNotice {
+	background-color:#BFFFC2; 
+	border:1px solid #1D2F1E; 
+	padding:5px
+}
+
+.flashWarning {
+	background-color:#FFF15F; 
+	border:1px solid #DFC345; 
+	padding:5px
+}
+
+.flashError {
+	background-color:#FF9F9F; 
+	border:1px solid #8F1111; 
+	padding:5px
+}
+
+.subline {
+	/*float:right;*/
+	text-align: right;
+	font-size: 80%;
+	color: #AAA;
+}
+
+.footer {
+	text-align: right;
+	font-size: 80%;
+	color: #AAA;
+}
+
+.annotation {
+	color: #AAA;
+}
+
+.inlineEditable {
+	float: left;
+	margin-right: 0.3em;
+}
+
+form.inplaceeditor-form {
+	display: inline;
+	margin-right: 0px;
+	width: 100%;
+}
+
+.inplaceeditor-form input, .inplaceeditor-form select {
+	border: 1px solid #DFAC53;
+	background: #FFF8AF;
+	font-size: 100%;
+}
+
+input.editor_ok_button {
+	color: white;
+	background: #EE3322;
+	border: 1px solid red;
+	height: 22px;
+	width: 25px;
+	font-size: 13px;
+	padding: 2px;
+}
+
+.inplaceeditor-empty, .empty {
+    color: #BBB;
+}
+
+.inlineEdit {
+	cursor: text;
+}
+
+.fieldTitle {
+	color: #999;
+}
+
+.formCell {
+	padding-right: 18px;
+	padding-bottom: 6px;
+}
+
+.formBox {
+	border: 1px solid gray; 
+	padding: 10px;
+	background: white;
+}
+
+.handle {
+	cursor:move;
+}
+
+.personBox {
+	display:block; 
+	margin:0px; 
+	border-top:1px solid gray; 
+	/*border-bottom:1px solid gray; */
+	padding-top:10px; 
+	padding-bottom:10px; 
+}
+
+
+.contractsBox {
+	/*border:1px solid #BF9117;*/ 
+	border:1px solid #8BDF8F; 
+	padding:0px; 
+	margin:0px;
+	background: #BFFFC2;
+}
+
+.contractBox {
+	display: block; 
+	margin:0px; 
+	border-top:1px solid white; 
+	border-bottom:1px solid #67CF6B; 
+}
+
+.contractBoxCompleted {
+	background: white;
+	display: block; 
+	margin:0px; 
+	border-top:1px solid white; 
+	border-bottom:1px solid #8BDF8F;  
+}
+
+.contractRow {
+	border-top:1px solid white; 
+	/*border-bottom:1px solid #67CF6B;*/ 
+	border-bottom:1px solid #67CF6B; 
+	/*background: #BFFFC2;*/
+	background: #BFFFC2;
+	padding: 5px;
+}
+
+.contractRowLight {
+	border-top:1px solid white; 
+	/*border-bottom:1px solid #67CF6B;*/ 
+	border-bottom:1px solid #67CF6B; 
+	/*background: #DFFFE0;*/
+	background: #DFFFE0;
+	padding: 5px;
+}
+
+.contractDateCell {
+	width: 80px;
+	background: #DFFFE0;
+	padding: 10px;
+}
+
+.contractBox .inplaceeditor-empty, .contractRow .inplaceeditor-empty{
+	color: #6A9F59; 
+}
+
+.contractDateCell .inplaceeditor-empty {
+	color: black;
+}
+
+
+.meetingsBox {
+	/*border:1px solid #BF9117;*/ 
+	border:1px solid #B3C0EF; 
+	padding:0px; 
+	margin:0px;
+	background: #cfd9ff;
+}
+
+.meetingBox {
+	display: block; 
+	margin:0px; 
+	border-top:1px solid white; 
+	border-bottom:1px solid #B3C0EF; 
+}
+
+.meetingBoxCompleted {
+	background: white;
+	display: block; 
+	margin:0px; 
+	border-top:1px solid white; 
+	border-bottom:1px solid #B3C0EF;  
+}
+
+.meetingRow {
+	border-top:1px solid white; 
+	/*border-bottom:1px solid #67CF6B;*/ 
+	border-bottom:1px solid #B3C0EF; 
+	/*background: #BFFFC2;*/
+	background: #cfd9ff;
+	padding: 5px;
+}
+
+.meetingRowLight {
+	border-top:1px solid white; 
+	/*border-bottom:1px solid #67CF6B;*/ 
+	border-bottom:1px solid #B3C0EF; 
+	/*background: #DFFFE0;*/
+	background: #e2e8ff;
+	padding: 5px;
+}
+
+.meetingDateCell {
+	width: 80px;
+	background: #e2e8ff;
+	padding: 10px;
+}
+
+.meetingBox .inplaceeditor-empty, .meetingRow .inplaceeditor-empty{
+	color: #77A0BF; 
+}
+
+
+.actionsBox {
+	/*border:1px solid #BF9117;*/ 
+	border:1px solid #DFCD7D; 
+	padding:0px; 
+	margin:0px;
+	background: #FEFFBF;
+}
+
+.actionBox {
+	display: block; 
+	margin:0px; 
+	border-top:1px solid white; 
+	border-bottom:1px solid #FFCF4F; 
+	background: #FEFFBF; 
+}
+
+.actionBoxCompleted {
+	background: white;
+	display: block; 
+	margin:0px; 
+	border-top:1px solid white; 
+	border-bottom:1px solid #DFCD7D;  
+}
+
+.actionRow {
+	border-top:1px solid white; 
+	border-bottom:1px solid #FFCF4F; 
+	background: #FEFFBF;
+	padding: 5px;
+}
+
+.actionRowLight {
+	border-top:1px solid white; 
+	border-bottom:1px solid #FFCF4F; 
+	background: #fcfedf;
+	padding: 5px;
+}
+
+.actionDateCell {
+	width: 80px;
+	background: #fcfedf;
+	padding: 10px;
+}
+
+.actionBox .inplaceeditor-empty, .actionRow .inplaceeditor-empty{
+	color: #CFBA5A; 
+}
+
+.noteBox {
+	display: block; 
+	margin:0px; 
+	border-top:1px solid white; 
+	border-bottom:1px solid #BFBFBF; 
+	padding:10px;
+}
+
+.notesBox {
+	border:1px solid #DFDFDF; 
+	padding:0px; 
+	margin:0px;
+	background: #EFEFEF;
+}
+
+
+.sublineNotes {
+	/*float:right;*/
+	text-align: right;
+	font-size: 80%;
+	color: #999;
+}
+
+
+.memberBox {
+	display: block; 
+	margin:0px; 
+	border-top:1px solid white; 
+	border-bottom:1px solid #BFBFBF; 
+	padding:10px;
+}
+
+.membersBox {
+	border:1px solid #DFDFDF; 
+	padding:0px; 
+	margin:0px;
+	background: #EFEFEF;
+}
+
+
+.addContactSelect {
+	width: 113px;
+}
+
+.formElementTitle {
+	margin-top: 6px;
+}
+
+#menu {
+	background: white;
+	/*background: #FFBD6F;*/
+	padding: 5px 40px 5px 40px;
+	border-bottom: 2px solid #003d4c;
+}
+
+.listRow {
+	border-top:1px solid #CCC; 
+	padding: 3px;
+}
+
+.status1 {
+	font-size: 80%;
+	background: #DFDFDF;
+	color: #777;
+}
+
+.status2 {
+	font-size: 80%;
+	background: #FFB5AF;
+	color: #9F4C45;
+}
+
+.status3 {
+	font-size: 80%;
+	background: #FEFFBF;
+	color: #AF8E36;
+}
+
+.status4 {
+	font-size: 80%;
+	background: #CFE0FF;
+	color: #4C70AF;
+}
+
+.status5 {
+	font-size: 80%;
+	background: #BFFFC2;
+	color: #599F5C;
+}
+
+.calendarText {
+	width: 70px;
+}
+
+.shortDate {
+	font-size: 130%;
+}
+
+.listItem {
+	/*padding: 2px;*/
+	float: left;
+	margin-right: 3px;
+	padding: 2px;
+	padding-right: 10px;
+}
+
+.listItemInner {
+	float: left;
+	padding: 2px;
+}
+
+.listItemHover {
+	border: 1px solid #DFAC53;
+	/*padding: 3px;*/
+	float: left;
+	margin-right: 3px;
+}
+
+.listItemRemoveButton {
+	background: #FFF8AF;
+	border-left: 1px solid #DFAC53;
+	padding: 2px;
+	float: left;
+}
+
+.listAddButton {
+	background: #FFF8AF;
+	border: 1px solid #DFAC53;
+	float:left;
+	padding: 2px;
+}
+
+.listAddForm {
+	float: left;
+}
+
+.listAddForm select {
+	width: 150px;
+}
+
+#openers {
+	min-height: 20px;
+}
+
+.paidContractIndicator {
+	width: 10px;
+	height: 10px;
+	background: #428F3E;
+	border: 1px solid #428F3E;
+}
+
+.unpaidContractIndicator {
+	width: 10px;
+	height: 10px;
+	background: #BFFFC2;
+	border: 1px solid #428F3E;
+}
+
+.meetingIndicator {
+	width: 10px;
+	height: 10px;
+	background: white;
+	border: 1px solid #4C70AF;
+}
+
+.futureMeetingIndicator {
+	width: 10px;
+	height: 10px;
+	background: #CFE0FF;
+	border: 1px solid #4C70AF;
+}
+
+.key {
+	border: 1px solid #CCC; 
+	padding: 5px;
+	width: 150px;
+}
+
+
+/*************** CALENDAR ************************/
+
+.calendarDay {
+	height: 120px;
+	border: 1px solid #CCC;
+	padding: 3px;
+	margin: 4px;
+	/*margin-right: 5px;
+	margin-bottom: 10px;*/
+}
+
+.weekend {
+	background: #EFEFEF;
+}
+
+.today {
+	border: 3px solid #FFBE0F;
+}
+
+.monthStarting {
+	border-top: 1px solid #777;
+}
+
+.monthEnding {
+	border-bottom: 1px solid #777;
+}
+
+.monthEnd {
+	border-right: 1px solid #777;
+}
+
+.calendarAdd {
+	background: #FFF8AF;
+	border: 1px solid #DFAC53;
+	float:right;
+	padding: 0px 2px;
+}
+
+.calendarTime {
+	float:left;
+	width: 34px;
+	padding: 5px;
+	margin-right:3px;
+	position: relative;
+	display: inline;
+}
+
+.calendarEventInner {
+	padding: 5px;
+	font-size: 80%;
+	margin-left:50px;
+}
+.calendarMeeting {
+	border-top:1px solid white; 
+	border-bottom:1px solid #B3C0EF; 
+	background: url(../img/calMeetingBg.gif) top left repeat-y #cfd9ff;
+	position: relative;
+}
+
+.statusPercentCell {
+	float: left;
+	height: 30px;
+}
+
+.statusPercentCellContent {
+	text-align: center;
+	padding-top: 8px;
+}
+
+.keyBox {
+	height: 10px;
+	width: 10px;
+	float: left;
+	margin-right: 5px;
+	margin-top: 2px;
+}
+
+.statusKey1 {
+	background: #DFDFDF;
+	border: 1px solid #777;
+}
+
+.statusKey2 {
+	background: #FFB5AF;
+	border: 1px solid #9F4C45;
+}
+
+.statusKey3 {
+	background: #FEFFBF;
+	border: 1px solid #AF8E36;
+}
+
+.statusKey4 {
+	background: #CFE0FF;
+	border: 1px solid #4C70AF;
+}
+
+.statusKey5 {
+	background: #BFFFC2;
+	border: 1px solid #599F5C;
+}
+
+#statsBox {
+	border: 1px solid #aaa;
+	padding: 5px;
+}
+
+.addMemberSelect {
+	width: 100%;
+}
+

@@ -1,0 +1,1 @@
+{value:'<?php echo $format->shortDate($date) ?>', editValue:'<?php echo $slashDate ?>'}

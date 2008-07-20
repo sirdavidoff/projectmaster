@@ -1,0 +1,35 @@
+BUGS
+
+When creating a new contact, only check if it already exists in the current project
+Can't change contact status in IE6
+Change past activity summaries to use the status at the time
+Check that changing status to 'positive' is actually shown on the activity summary
+Make contact's last_updated field change when a note is added, etc.
+Add a new contract with payment on pub. Bad things happen
+Create a meeting. It forgets the 'with' value if there is an error on submission
+Sort out the jog and underline of '+' in the openers section
+Check meeting date validation - something may be missing
+
+TWEAKS
+
+Actions with times should come first in the agenda
+When adding something (note, meeting, person) put the focus on the first field
+Put 'http://' in the website field
+Colour the status appropriately
+Sanitise and validate fields when in-place editing
+Put rescheduled meetings in the activity summary
+Include contract payment in overdue actions
+Automatically change status from open to follow-up after a meeting
+Add a flag indicating whether a person's password needs to be changed and set it when and admin resets their password
+Adjust times for the time zone of each project
+
+FEATURES
+
+List the companies that haven't been updated in a while
+Allow each project to define new sectors
+Add a summary field for past meetings
+Add actions (including ones with no contact) from the agenda page
+Add events to the calendar
+Add automatic actions (fax of the day, meeting thankyous, interview questions, caja, transcripts)
+Upload PDFs of finished reports
+Add a week-by-week progress graph (companies seen and amount signed) to the project overview

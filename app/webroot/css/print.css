@@ -1,0 +1,42 @@
+body {
+	margin: 10px;
+}
+
+h1 {
+	color: black;
+}
+
+.h1b {
+	color: black;
+}
+
+#printHeader {
+	border-bottom: 1px solid black;
+	margin-bottom: 10px;
+}
+
+#printTime {
+	float:right;
+}
+
+.inplaceeditor-empty, .empty {
+	display: none;
+}
+
+.actionsBox, .notesBox, .meetingsBox , .contractsBox {
+	border: 1px solid #aaa;
+}
+
+.actionBox, .actionDateCell,
+.meetingBox, .meetingDateCell, .meetingBoxCompleted,
+.contractBox, .contractDateCell,
+.noteBox {
+	background: white;
+	border: none;
+}
+
+.listItemInner a {
+	font-weight: normal;
+	color: black;
+	text-decoration: none;
+}
