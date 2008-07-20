@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>
-		MediaLinks: <?php echo $title_for_layout;?>
+		<?php echo $title_for_layout;?> - ProjectMaster
 	</title>
 
 	<?php echo $html->charset();?>

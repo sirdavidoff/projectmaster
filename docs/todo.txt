@@ -22,6 +22,7 @@ Include contract payment in overdue actions
 Automatically change status from open to follow-up after a meeting
 Add a flag indicating whether a person's password needs to be changed and set it when and admin resets their password
 Adjust times for the time zone of each project
+Add project names to page titles in the template
 
 FEATURES
 
