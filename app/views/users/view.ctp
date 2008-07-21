@@ -91,5 +91,5 @@
 <br />
 <br />
 
-<?php echo $html->link('User List', array('controller' => 'users', 'action' => 'listAll')) ?><br />
-<?php echo $html->link('Project List', array('controller' => 'projects', 'action' => 'listAll')) ?><br />
+<?php //echo $html->link('User List', array('controller' => 'users', 'action' => 'listAll')) ?><br />
+<?php //echo $html->link('Project List', array('controller' => 'projects', 'action' => 'listAll')) ?><br />
