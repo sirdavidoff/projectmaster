@@ -356,7 +356,37 @@ Ajax.floatWindow = Class.create({
 });
 
 
+/*
+ * Sortable list that you can dynamically add rows to
+ */
+Ajax.DynamicSortable = Class.create({
+	initialize: function(element, options) {
+		this.element = $(element);
+		this.options = Object.extend({ 
+	      innerCode:   'error: innerCode not specified',
+	      innerId:     'fieldList',
+	      innerClass:  'fieldListItem'
+	    }, options || { });
+		this.update();
+	},
+	addRow: function(code) {
+		var newRow = document.createElement('li');
+		newRow.className = this.options.innerClass;
+		newRow.id = this.options.innerId;
+		
+		if(code != null)
+			newRow.innerHTML = code;
+		else
+			newRow.innerHTML = this.options.innerCode;
 
+		this.element.appendChild(newRow);
+		this.update();
+	},
+	update: function() 
+	{
+		Sortable.create(this.element.id, this.options);
+	}
+});
 
 
 

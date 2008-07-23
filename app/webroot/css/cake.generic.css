@@ -545,6 +545,12 @@ input.editor_ok_button {
 	background: white;
 }
 
+.fileUploadBox {
+	border: 1px solid #CCC; 
+	padding: 10px;
+	background: white;
+}
+
 .handle {
 	cursor:move;
 }
@@ -713,6 +719,25 @@ input.editor_ok_button {
 
 .actionBox .inplaceeditor-empty, .actionRow .inplaceeditor-empty{
 	color: #CFBA5A; 
+}
+
+.fieldsBox {
+	border:1px solid #DFDFDF; 
+	padding:0px; 
+	margin:0px;
+	background: #FDFDFD;
+}
+
+.fieldBox {
+	display: block; 
+	margin:0px; 
+	border-top:1px solid white; 
+	border-bottom:1px solid #BFBFBF; 
+	padding:10px;
+}
+
+.fieldButtons {
+	float: right;
 }
 
 .noteBox {

@@ -162,6 +162,7 @@ class AjaxsHelper extends AjaxHelper {
 
 		return $output;
 	}
+	
 }
 
 ?>
