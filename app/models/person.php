@@ -44,9 +44,9 @@ class Person extends AppModel
 	{
 		
 		$this->validate = array(
-							'position' => array(
+							/*'position' => array(
 								'required' => array('rule' => VALID_NOT_EMPTY, 'message' => "You must enter the position of the person")
-							)
+							)*/
 						);
 		
 		return parent::beforeValidate();

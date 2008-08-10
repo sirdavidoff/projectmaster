@@ -363,6 +363,9 @@ div.error em {
 	font-size: 140%;
 	color: #003d4c;
 }
+.error {
+	color: #9F1D1D;
+}
 span.notice {
 	background-color: #c6c65b;
 	color: #fff;

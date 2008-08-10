@@ -127,7 +127,8 @@ class AppController extends Controller
 	
 	function getModel($name)
 	{
-		loadModel($name);
+		//loadModel($name);
+		App::import($name);
 		$model = new $name();
 		$model->controller = $this;
 		return $model;

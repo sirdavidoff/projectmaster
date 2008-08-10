@@ -73,6 +73,7 @@
 								<?php echo $html->link('Contacts', "/contacts/listAll/$pid") ?>
 								<?php echo $html->link('Add', "/contacts/add/$pid", array('style' => 'font-weight:normal;text-decoration:none')) ?> |
 								<?php echo $html->link('Activity', "/summaries/activity/$pid/today") ?> |
+								<?php echo $html->link('Import', "/import/contacts/$pid") ?> |
 								<?php echo $html->link('Export', "/export/summary/$pid") ?>
 							</td>
 							<td valign="middle" align="right">

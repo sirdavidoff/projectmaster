@@ -1,60 +1,11 @@
-insert into contacttypes values ('', 'Opener');
-insert into contacttypes values ('', 'Buyer');
-insert into contacttypes values ('', 'Other');
-	
-insert into markets values ('', 'A');
-insert into markets values ('', 'B');
-insert into markets values ('', 'C');
-insert into markets values ('', 'D');
-	
-insert into sectors values ('', 'Government');
-insert into sectors values ('', 'Energy');
-insert into sectors values ('', 'Communication');
-insert into sectors values ('', 'IT & Electronics');
-insert into sectors values ('', 'Transport/Logisitics');
-insert into sectors values ('', 'Infrastructure');
-insert into sectors values ('', 'Tourism');
-insert into sectors values ('', 'Banking & Finance');
-insert into sectors values ('', 'Industry');
-insert into sectors values ('', 'Media');
-insert into sectors values ('', 'Shipping');
-insert into sectors values ('', 'Real Estate/Construction');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Agriculture');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Institutions');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Utilities');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Education');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Various');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Holding');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Natural Resources');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Defence');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Pharmaceuticals');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Leisure');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Trading');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Services');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Business');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Healthcare');
-insert into sectors values ('', 'Other');
-UPDATE `sectors` SET `id` = 0 WHERE `name` = "Other";
-	
-insert into statuses values ('', 'Negative');
-insert into statuses values ('', 'Unopened');
-insert into statuses values ('', 'Open');
-insert into statuses values ('', 'Follow-up');
-insert into statuses values ('', 'Positive');
-	
-insert into media values ('', 'Fortune', 'IPS');
-insert into media values ('', 'Newsweek', 'MediaLinks');
-insert into media values ('', 'El Mundo', 'BBVision');
-	
-insert into project_statuses values ('', 'Open');
-insert into project_statuses values ('', 'Closed');
-	
-insert into roles values ('', 'Director');
-insert into roles values ('', 'Co-director');
-insert into roles values ('', 'Coordinator');
-insert into roles values ('', 'Journalist');
-insert into roles values ('', 'Trainee');
-insert into roles values ('', 'PCM');
+CREATE TABLE `contact_import_fields`
+(
+`id` INTEGER(10) NOT NULL AUTO_INCREMENT ,
+`name` VARCHAR(255),
+`reference` VARCHAR(255) NOT NULL,
+`validate` VARCHAR(255),
+PRIMARY KEY (`id`)
+);
 
 insert into contact_import_fields values ('', 'Contact.name', 'Contact Name', '');
 insert into contact_import_fields values ('', 'Contact.contacttype_id', 'Contact Type', 'Contacttype.name');
@@ -62,9 +13,8 @@ insert into contact_import_fields values ('', 'Contact.sector_id', 'Contact Sect
 insert into contact_import_fields values ('', 'Contact.market_id', 'Contact Market', 'Market.name');
 insert into contact_import_fields values ('', 'Contact.status_id', 'Contact Status', 'Status.name');
 insert into contact_import_fields values ('', 'Contact.address', 'Contact Address', '');
-insert into contact_import_fields values ('', 'Contact.tel', 'Contact General Tel', '');
-insert into contact_import_fields values ('', 'Contact.fax', 'Contact General Fax', '');
-insert into contact_import_fields values ('', 'Contact.email', 'Contact General Email', '');
+insert into contact_import_fields values ('', 'Contact.tel', 'Contact Tel', '');
+insert into contact_import_fields values ('', 'Contact.fax', 'Contact Fax', '');
 insert into contact_import_fields values ('', 'Contact.website', 'Contact Website', '');
 insert into contact_import_fields values ('', 'Note.n.text', 'Contact Note', '');
 insert into contact_import_fields values ('', 'Person.0.name', 'Person 1 Name', '');
@@ -93,3 +43,40 @@ insert into contact_import_fields values ('', 'Person.2.email', 'Person 3 Email'
 insert into contact_import_fields values ('', 'Person.2.notes', 'Person 3 Note', '');
 insert into contact_import_fields values ('', 'Note.n.text', 'Other (Add as note)', '');
 insert into contact_import_fields values ('', '', '*Ignore this column*', '');
+
+ALTER TABLE `contacts` CHANGE `contacttype_id` `contacttype_id` INT( 10 ) NOT NULL DEFAULT '2';
+UPDATE `sectors` SET `id` = 0 WHERE `name` = "Other";
+UPDATE contacts SET sector_id = 0 WHERE sector_id = 13;
+ALTER TABLE `contacts` CHANGE `sector_id` `sector_id` INT( 10 ) NOT NULL DEFAULT '0';
+ALTER TABLE `contacts` CHANGE `market_id` `market_id` INT( 10 ) NULL DEFAULT '4';
+
+CREATE TABLE `contact_imports`
+(
+`id` INTEGER(10) NOT NULL AUTO_INCREMENT ,
+`created` DATETIME NOT NULL,
+`created_by` INTEGER(10) NOT NULL,
+PRIMARY KEY (`id`)
+);
+
+ALTER TABLE `contacts` ADD `contact_import_id` INT( 10 ) NULL;
+
+ALTER TABLE `people` CHANGE `position` `position` VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '?';
+
+UPDATE `sectors` SET `name` = 'Energy & Utilities' WHERE `sectors`.`id` =2 LIMIT 1 ;
+UPDATE `sectors` SET `name` = 'IT & Electronics' WHERE `sectors`.`id` =4 LIMIT 1 ;
+UPDATE `sectors` SET `name` = 'Banking & Finance' WHERE `sectors`.`id` =8 LIMIT 1 ;
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Manufacturing');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Agriculture');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Institutions');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Utilities');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Education');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Various');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Holding');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Natural Resources');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Defence');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Pharmaceuticals');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Leisure');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Trading');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Services');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Business');
+INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Healthcare');

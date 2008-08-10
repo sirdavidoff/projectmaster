@@ -80,7 +80,7 @@ class Contact extends AppModel {
 								'required' => array('rule' => VALID_NOT_EMPTY, 'message' => "You must select the type of contact")
 							),
 							'name' => array(
-								'unique' => array('rule' => 'isUniqueField', 'field' => 'name', 'message' => "There is already a contact with this name"),
+								'unique' => array('rule' => 'isUniqueFieldInProject', 'field' => 'name', 'message' => "There is already a contact with this name"),
 								'required' => array('rule' => VALID_NOT_EMPTY, 'message' => "You must enter the name of the contact")
 							),
 							'sector_id' => array(
@@ -95,6 +95,36 @@ class Contact extends AppModel {
 						);
 		
 		return parent::beforeValidate();	// If we don't return true, validation won't be performed
+	}
+	
+	
+	
+	function isUniqueFieldInProject($value, &$params = array())
+	{
+		if(!$params['field']) trigger_error("No field specified for AppModel::isUniqueField() call", E_USER_WARNING);
+		$field = $params['field'];
+		if(is_array($value)) $value = array_pop($value);
+		
+		if(isset($this->data[$this->name]))
+			$data = $this->data[$this->name];
+		else	
+			$data = $this->data;
+
+		// If the record is already in the DB and the value is the same as the DB one, don't complain
+		if(isset($data['id']))
+		{
+			$result = $this->find($data['id'], array($field));
+			if($result[$this->name][$field] == $value) {
+				return true;
+			}
+		}
+		
+		$results = $this->findAll(array($params['field'] => $value, 'project_id' => $data['project_id']), array('id'), null, null, null, -1);
+		
+		if(!$results) return true;
+		
+		$ids = Set::extract($results, '{n}.'.$this->name.'.id');
+		return $ids && count($ids) == 1 && $ids[0] == $this->id;
 	}
 
 }

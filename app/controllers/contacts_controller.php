@@ -16,7 +16,7 @@ class ContactsController extends AppController
 	var $uses = array('Contact', 'TeamMember', 'Person', 'Contract', 'Meeting', 'Action', 'Note', 'ContactStatusChange');
 	var $helpers = array('Html', 'Form', 'Forms', 'Ajax');
 
-	var $redirectSafe = array('index', 'view');
+	var $redirectSafe = array('index', 'view', 'listAll');
 
 
 	

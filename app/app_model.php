@@ -474,5 +474,31 @@ class AppModel extends Model{
 			return array();
 	}
 	
+	
+	/**
+	 * The way Cake validation works, if a field is not specified at all then it won't be checked against its
+	 * validation rule. By calling this function, unspecified fields are filled with blank values so that they
+	 * are checked against validation
+	 *
+	 * @return void
+	 * @author David Roberts
+	 */
+	
+	function fillEmptyFields()
+	{
+		if(isset($this->data[$this->name])) 
+		{
+			$data = $this->data[$this->name];
+		} else {
+			$data = $this->data;
+		}
+		
+		foreach($this->_schema as $fieldname => $details) 
+		{
+			if(!isset($data[$fieldname]))
+				$this->set($fieldname, '');
+		}
+	}
+	
 }
 ?>
