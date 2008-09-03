@@ -31,11 +31,9 @@
 			<div id="printTime">
 				printed on <?php echo $format->date(date('Y-m-d'), false, true, false) ?>
 			</div>
-			<?php for($i = 0; $i < count($relProj); $i++): ?>
-				<?php if (isset($pid) && $pid == $relProj[$i]['Project']['id']): ?>
-					<?php echo $format->projectName($relProj[$i]) ?>
-				<?php endif ?>
-			<?php endfor ?>
+			<?php if (isset($allProj[$pid])): ?>
+				<?php echo $allProj[$pid] ?>
+			<?php endif ?>
 		</div>
 		<div style="clear:both"></div>
 	<?php endif ?>

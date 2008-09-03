@@ -12,6 +12,7 @@ Check meeting date validation - something may be missing
 
 TWEAKS
 
+Add a description field for contacts
 Actions with times should come first in the agenda
 When adding something (note, meeting, person) put the focus on the first field
 Put 'http://' in the website field
