@@ -23,24 +23,53 @@ class ExportController extends AppController
 		$formatHeading->setBold();
 		
 		// Set the style for the status cells
-		$formatStatus[1] =& $xls->addFormat();
-		$formatStatus[1]->setFgColor(22);
-		$formatStatus[2] =& $xls->addFormat();
-		$formatStatus[2]->setFgColor(45);
-		$formatStatus[3] =& $xls->addFormat();
-		$formatStatus[3]->setFgColor(43);
-		$formatStatus[4] =& $xls->addFormat();
-		$formatStatus[4]->setFgColor(44);
-		$formatStatus[5] =& $xls->addFormat();
-		$formatStatus[5]->setFgColor(50);
+		$formatStatus[1][false] =& $xls->addFormat();
+		$formatStatus[1][false]->setFgColor(22);
+		$formatStatus[1][true] =& $xls->addFormat();
+		$formatStatus[1][true]->setFgColor(22);
+		$formatStatus[1][true]->setTop(1);
+		$formatStatus[1][true]->setTopColor(0);
+		
+		$formatStatus[2][false] =& $xls->addFormat();
+		$formatStatus[2][false]->setFgColor(45);
+		$formatStatus[2][true] =& $xls->addFormat();
+		$formatStatus[2][true]->setFgColor(45);
+		$formatStatus[2][true]->setTop(1);
+		$formatStatus[2][true]->setTopColor(0);
+		
+		$formatStatus[3][false] =& $xls->addFormat();
+		$formatStatus[3][false]->setFgColor(43);
+		$formatStatus[3][true] =& $xls->addFormat();
+		$formatStatus[3][true]->setFgColor(43);
+		$formatStatus[3][true]->setTop(1);
+		$formatStatus[3][true]->setTopColor(0);
+		
+		$formatStatus[4][false] =& $xls->addFormat();
+		$formatStatus[4][false]->setFgColor(44);
+		$formatStatus[4][true] =& $xls->addFormat();
+		$formatStatus[4][true]->setFgColor(44);
+		$formatStatus[4][true]->setTop(1);
+		$formatStatus[4][true]->setTopColor(0);
+		
+		$formatStatus[5][false] =& $xls->addFormat();
+		$formatStatus[5][false]->setFgColor(50);
+		$formatStatus[5][true] =& $xls->addFormat();
+		$formatStatus[5][true]->setFgColor(50);
+		$formatStatus[5][true]->setTop(1);
+		$formatStatus[5][true]->setTopColor(0);
+		
+		$normalFormat[false] =& $xls->addFormat();
+		$normalFormat[true] =& $xls->addFormat();
+		$normalFormat[true]->setTop(1);      
+		$normalFormat[true]->setTopColor(0); 
 
 		// Add a worksheet to the file, returning an object to add data to
 		$sheet =& $xls->addWorksheet('Summary');
 		
 		// Set the column widths
-		$sheet->setColumn(0, 0, 15);
+		$sheet->setColumn(0, 0, 8);
 		$sheet->setColumn(1, 1, 15);
-		$sheet->setColumn(2, 2, 30);
+		$sheet->setColumn(2, 2, 5);
 		$sheet->setColumn(3, 3, 30);
 		$sheet->setColumn(4, 4, 20);
 		$sheet->setColumn(5, 5, 20);
@@ -49,36 +78,59 @@ class ExportController extends AppController
 		
 		// Write the headers
 		$sheet->write(0, 0, 'Status', $formatHeading);
-		$sheet->write(0, 1, 'Objective (euros)', $formatHeading);
-		$sheet->write(0, 2, 'Company', $formatHeading);
-		$sheet->write(0, 3, 'Interviewee', $formatHeading);
-		$sheet->write(0, 4, 'Website', $formatHeading);
-		$sheet->write(0, 5, 'Sector', $formatHeading);
-		$sheet->write(0, 6, 'Alternative Aps', $formatHeading);
-		$sheet->write(0, 7, 'Notes', $formatHeading);
+		$sheet->write(0, 1, 'Sector', $formatHeading);
+		$sheet->write(0, 2, 'Market', $formatHeading);
+		$sheet->write(0, 3, 'Company', $formatHeading);
+		$sheet->write(0, 4, 'Interviewee', $formatHeading);
+		$sheet->write(0, 5, 'Website', $formatHeading);
+		$sheet->write(0, 6, 'Sector', $formatHeading);
+		$sheet->write(0, 7, 'Alternative Aps', $formatHeading);
+		$sheet->write(0, 8, 'Notes', $formatHeading);
 
 		$contacts = $this->Contact->findAll("Contact.project_id = '$pid'", null, "sector_id ASC, market_id ASC, contacttype_id ASC, status_id DESC");
+		
+		$prevSectorId = '';
+		$firstInSector = false;
+		$j = 0;
 		
 		for($i = 0; $i < count($contacts); $i++) 
 		{ 
 			$c = $contacts[$i];
 			
+			/*$advertised = '';
+			foreach($c['Note'] as $note) 
+			{
+				if(strToUpper(trim(substr($note['text'], 0, 6))) == "ADVERT") 
+				{
+					$advertised = $note['text'];
+					$j++;
+				}
+			}*/
+			
+			//if(strlen($advertised) > 0) {
+			
+			$firstInSector = ($prevSectorId != $c['Sector']['id']);
+			$prevSectorId = $c['Sector']['id'];
+			
 			// Write Sector
-			$sheet->write($i+1, 5, $c['Sector']['name']);
+			$sheet->write($i+1, 1, $c['Sector']['name'], $normalFormat[$firstInSector]);
+			
+			// Write Market
+			$sheet->write($i+1, 2, $c['Market']['name'], $normalFormat[$firstInSector]);
 			
 			// Write Contact Name
-			$sheet->write($i+1, 2, $c['Contact']['name']);
+			$sheet->write($i+1, 3, $c['Contact']['name'], $normalFormat[$firstInSector]);
 			
 			// Write Interviewee and Position
 			if(count($c['Person']) > 0)
 			{
 				$interviewee = $c['Person'][0]['name'];
 				if(isset($c['Person'][0]['position'])) $interviewee .= " (" . $c['Person'][0]['position'] . ")";
-				$sheet->write($i+1, 3, $interviewee);
+				$sheet->write($i+1, 4, $interviewee, $normalFormat[$firstInSector]);
 			}
 			
 			// Write Website
-			$sheet->write($i+1, 4, $c['Contact']['website']);
+			$sheet->write($i+1, 5, $c['Contact']['website'], $normalFormat[$firstInSector]);
 			
 			// Write Alternative Aps
 			$open = "";
@@ -88,11 +140,13 @@ class ExportController extends AppController
 				$open .= $c['Openee'][$j]['name'];
 				if($j != $numOpen-1) $open .= ", ";
 			}
-			$sheet->write($i+1, 6, $open);
+			$sheet->write($i+1, 6, $open, $normalFormat[$firstInSector]);
 			
 			// Write Status
 			$status = $c['Contact']['status_id'];
-			$sheet->write($i+1, 0, $this->getSlashStatus($c), $formatStatus[$status]);
+			$sheet->write($i+1, 0, $this->getSlashStatus($c), $formatStatus[$status][$firstInSector]);
+			
+			//} // Remove me 
 		}
 
 		// Finish the spreadsheet, dumping it to the browser
@@ -119,7 +173,7 @@ class ExportController extends AppController
 			case 2: return 'To Open';
 					break;
 					
-			case 3: return 'Open';
+			case 3: return $this->getOpenStatus($c);
 					break;
 					
 			case 4: return $this->getFollowUpStatus($c);
@@ -142,6 +196,12 @@ class ExportController extends AppController
 	{
 		if($c['Contact']['contacttype_id'] == 1) return 'Aps / Rto';
 		return 'Pto / Rto';
+	}
+	
+	function getOpenStatus($c)
+	{
+		if(isset($c['Meeting']) && count($c['Meeting']) > 0) return 'Meeting';
+		return 'Open';
 	}
 	
 	function getPosStatus($c)

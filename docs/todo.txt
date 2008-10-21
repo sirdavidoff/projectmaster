@@ -1,5 +1,7 @@
 BUGS
 
+Timezones not supported
+Print view doesn't include completed actions
 When creating a new contact, only check if it already exists in the current project
 Can't change contact status in IE6
 Change past activity summaries to use the status at the time
@@ -12,6 +14,9 @@ Check meeting date validation - something may be missing
 
 TWEAKS
 
+Take out revenue and growth fields
+Order contacts by sector by default, with Govt and Insts first and Other last
+Order the sectors in dropdown lists properly
 Add a description field for contacts
 Actions with times should come first in the agenda
 When adding something (note, meeting, person) put the focus on the first field
@@ -24,9 +29,11 @@ Automatically change status from open to follow-up after a meeting
 Add a flag indicating whether a person's password needs to be changed and set it when and admin resets their password
 Adjust times for the time zone of each project
 Add project names to page titles in the template
+Change the status of companies from the 'All Contacts' page
 
 FEATURES
 
+Find as you type in the search box
 List the companies that haven't been updated in a while
 Allow each project to define new sectors
 Add a summary field for past meetings

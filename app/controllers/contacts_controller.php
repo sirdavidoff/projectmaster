@@ -147,16 +147,16 @@ class ContactsController extends AppController
 	}
 	
 	
-	function listAll($pid, $order = 'type')
+	function listAll($pid, $order = 'sector')
 	{
 		switch ($order) {
-			case 'sector':
-				$orderCode = "sector_id ASC, status_id DESC, contacttype_id ASC, market_id ASC"; break;
 			case 'status':
 				$orderCode = "status_id DESC, contacttype_id ASC, market_id ASC, sector_id ASC"; break;
 			case 'type':
-			default:
 				$orderCode = "contacttype_id ASC, market_id ASC, status_id DESC, sector_id ASC"; break;
+			case 'sector':
+			default:
+				$orderCode = "sector_id ASC, status_id DESC, contacttype_id ASC, market_id ASC"; break;
 		}
 		
 		//$this->Contact->restrict(Array('Market', 'Contacttype', 'Sector', 'Status', 'Meeting.id'));
@@ -176,7 +176,7 @@ class ContactsController extends AppController
 		}
 		
 		//Check to see whether there are any relevant people associated with a contact
-		$where = "Contact.project_id = '$pid' AND (Person.name LIKE '%".$query."%' OR Person.address LIKE '%".$query."%')";
+		$where = "Contact.project_id = '$pid' AND (Person.name LIKE '%".$query."%' OR Person.address LIKE '%".$query."%' OR Person.tel LIKE '%".$query."%' OR Person.mobile LIKE '%".$query."%')";
 		$people = $this->Contact->Person->findAll($where, array('contact_id'), "contacttype_id ASC, market_id ASC, status_id DESC, sector_id ASC");
 		$peopleIds = Set::extract($people, '{n}.Person.contact_id');
 		
@@ -193,7 +193,7 @@ class ContactsController extends AppController
 		}
 		
 		$this->Contact->recursive = 1;
-		$where = "Contact.project_id = '$pid' AND (Contact.name LIKE '%".$query."%' OR Contact.address LIKE '%".$query."%' OR $peopleWhere)";
+		$where = "Contact.project_id = '$pid' AND (Contact.name LIKE '%".$query."%' OR Contact.address LIKE '%".$query."%' OR Contact.tel LIKE '%".$query."%' OR $peopleWhere)";
 		$contacts = $this->Contact->findAll($where, null, "contacttype_id ASC, market_id ASC, status_id DESC, sector_id ASC");
 		
 		if(count($contacts) == 1)
