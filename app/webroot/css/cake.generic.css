@@ -803,6 +803,24 @@ input.editor_ok_button {
 	padding: 3px;
 }
 
+.printMini {
+	padding: 0px;
+	font-size: 0.8em;
+}
+
+.printMiniHeading {
+	font-size: 12px !important;
+	color: black !important;
+}
+
+.printContent0 {
+	color: #666 !important;
+}
+
+.printContent1 {
+	color: #000 !important;
+}
+
 .status1 {
 	font-size: 80%;
 	background: #DFDFDF;

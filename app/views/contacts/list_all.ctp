@@ -2,6 +2,7 @@
 	<tr>
 		<td valign="top"><h1><?php echo $pageTitle;?></h1></td>
 		<td valign="bottom" align="right">
+			Order:
 			<?php if ($order != 'type'): ?>
 				<?php echo $html->link('By type', Array('action' => "listAll/$pid/type")) ?>
 			<?php else: ?>
@@ -19,6 +20,11 @@
 			<?php else: ?>
 				By status
 			<?php endif ?>
+			
+			<br />
+			
+			<?php echo $html->link('List phone numbers', Array('action' => "phoneNumbers/$pid")) ?>
+			
 		</td>
 	</tr>
 </table>

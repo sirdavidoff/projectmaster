@@ -14,7 +14,7 @@ class ContactsController extends AppController
 	// Configuration vars
 	var $name = 'Contacts';
 	var $uses = array('Contact', 'TeamMember', 'Person', 'Contract', 'Meeting', 'Action', 'Note', 'ContactStatusChange');
-	var $helpers = array('Html', 'Form', 'Forms', 'Ajax');
+	var $helpers = array('Html', 'Form', 'Forms', 'Ajax', 'Rendering');
 
 	var $redirectSafe = array('index', 'view', 'listAll');
 
@@ -165,6 +165,31 @@ class ContactsController extends AppController
 		$this->set('order', $order);
 		$this->pageTitle = "All Contacts";
 	}
+	
+	
+	
+	function phoneNumbers($pid, $type = 'all')
+	{
+		switch ($type) {
+			case 'active':
+				$whereCode = "project_id = '$pid' AND status_id > 2";
+				break;
+			case 'all':
+			default:
+				$whereCode = "project_id = '$pid'";
+				break;
+		}
+		
+		//$this->Contact->restrict(Array('Market', 'Contacttype', 'Sector', 'Status', 'Meeting.id'));
+		$this->set('contacts', $this->Contact->findAll($whereCode, null, "Contact.name"));
+		$this->set('pid', $pid);
+		$this->set('type', $type);
+		$this->layout = 'print';
+		$this->pageTitle = "Contact Phone Numbers";
+	}
+	
+	
+	
 	
 	function search($pid, $query = null)
 	{

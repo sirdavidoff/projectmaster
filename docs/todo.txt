@@ -14,6 +14,8 @@ Check meeting date validation - something may be missing
 
 TWEAKS
 
+When showing the agenda page, only show that person's actions by default?
+Add 'assistant' to the project roles
 Take out revenue and growth fields
 Order contacts by sector by default, with Govt and Insts first and Other last
 Order the sectors in dropdown lists properly
@@ -33,6 +35,7 @@ Change the status of companies from the 'All Contacts' page
 
 FEATURES
 
+Should be able to assign a company to a person, then order companies by person in the 'All Contacts' section
 Find as you type in the search box
 List the companies that haven't been updated in a while
 Allow each project to define new sectors
