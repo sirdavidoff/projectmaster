@@ -1,6 +1,3 @@
-<pre>
-	<?php print_r($contact) ?>
-</pre>
 
 <?php if ($rendering->contactHasPhone($contact)): ?>
 <tr>
