@@ -1,10 +1,23 @@
+<pre>
+	<?php print_r($contact) ?>
+</pre>
 
 <?php if ($rendering->contactHasPhone($contact)): ?>
 <tr>
 	<td valign="top" class="listRow printMini">
 		
 		<?php $num = 0 ?>
-		<span class="status<?php echo $contact['Status']['id'] ?> printMiniHeading"><?php echo $contact['Contact']['name'] ?></span>
+		<span class="status<?php echo $contact['Status']['id'] ?> printMiniHeadingOuter">
+		<span class="printMiniHeading">	
+			<?php echo $contact['Contact']['name'] ?>
+		</span>
+		<span class="printMiniAdditional">
+		<?php if (isset($contact['Person']) && count($contact['Person']) > 0): ?>
+			<?php echo $contact['Person'][0]['name'] ?>
+			(<?php echo $contact['Person'][0]['position'] ?>)
+		<?php endif ?>
+		</span>
+	</span>	
 		<?php if (isset($contact['Contact']['tel']) && $contact['Contact']['tel'] != ''): ?>
 			<span class="printContent<?php echo $num ?>">
 				<?php echo $contact['Contact']['tel'] ?>

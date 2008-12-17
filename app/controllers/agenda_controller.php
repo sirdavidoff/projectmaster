@@ -7,19 +7,20 @@ class AgendaController extends AppController
 	var $name = 'Agenda';
 	var $uses = array('Contact', 'TeamMember', 'Action', 'Project');
 	var $components = array('Agenda');
-	var $helpers = array('Html', 'Form', 'Forms', 'Ajax', 'Calendar');
+	var $helpers = array('Html', 'Form', 'Forms', 'Ajax', 'Calendar', 'Rendering');
 
 	var $redirectSafe = array('agenda');
 	
 	
-	function view($pid, $userId = 0, $start = null, $end = null)
-	{
-		$current = !isset($start) && !isset($end);
+	function view($pid, $userId = null, $start = null, $end = null, $print = false)
+	{		
+		$current = (!isset($start) && !isset($end) ||
+				   ($start == date('Y-m-d') && $end == date('Y-m-d', mktime(0, 0, 0, date('m'), date('d')+6, date('Y')))));
 		
 		if(!isset($start)) $start = date('Y-m-d');
 		if(!isset($end)) $end = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d')+6, date('Y')));
 		
-		if(!isset($userId)) $userId = 0;
+		if(!isset($userId)) $userId = $this->Cauth->user('id');
 		
 		$events = array();
 		$datelessActions = array();
@@ -40,6 +41,8 @@ class AgendaController extends AppController
 		$this->set('datelessActions', $datelessActions);
 		if($current) $this->set('overdueActions', $overdueActions);
 		$this->setExtraData($pid);
+		$this->set('print', $print);
+		if($print) $this->layout = 'print';
 		$this->pageTitle = "Agenda";
 		
 	}

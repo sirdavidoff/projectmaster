@@ -19,6 +19,11 @@
 		<?php echo $html->link($data['Contact']['name'], '/contacts/view/' . $data['Contact']['id']) ?> -
 		<?php echo $ajaxs->editable($data['Action']['id'], $data['Action']['text'], 'text', 'Action', 'actions', 'span', array('rows' => 2, 'emptyText' => "'click to add note'")) ?>
 		<?php echo $this->renderElement('../actions/reschedule_box', array('id' => $data['Action']['id'], 'data' => $data)) ?>
+		<?php if ($print): ?>
+			<div>
+				<?php echo $this->renderElement('../contacts/contact_list_phone', array('contact' => $data)) ?>
+			</div>
+		<?php endif ?>
 	</td>
 	
 	<td valign="top" class="actionRow">
@@ -37,6 +42,7 @@
 			<?php echo $allProj[$data['Contact']['project_id']] ?>
 		<?php endif ?>
 	</td>
+	<?php if (!$print): ?>
 	<td valign="top" class="actionRowLight" style="text-align:right; width:130px">
 		<?php if ($data['Action']['completed'] == 0): ?>
 			<?php echo $html->link('done', '/actions/done/' . $data['Action']['id'] . "/true") ?>
@@ -44,4 +50,5 @@
 		<?php echo $this->renderElement('../actions/reschedule_link', array('id' => $data['Action']['id'])) ?>
 		
 	</td>
+	<?php endif ?>
 </tr>

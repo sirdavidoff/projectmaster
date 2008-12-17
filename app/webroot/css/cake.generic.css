@@ -813,6 +813,15 @@ input.editor_ok_button {
 	color: black !important;
 }
 
+.printMiniAdditional {
+	font-size: 10px !important
+}
+
+.printMiniHeadingOuter {
+	font-size: 12px !important;
+	margin-right: 3px;
+}
+
 .printContent0 {
 	color: #666 !important;
 }

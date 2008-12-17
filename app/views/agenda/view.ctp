@@ -29,6 +29,10 @@
 			<?php endif ?>
 			<?php echo $html->link('< earlier', "/agenda/view/$pid/$userId/$eStart/$eEnd") ?> | <?php echo $html->link('later >', "/agenda/view/$pid/$userId/$lStart/$lEnd") ?><br />
 			<?php //echo $this->renderElement('../actions/add_link') ?>
+			
+			<?php if (!$print): ?>
+				<?php //echo $html->link('Printable version', "/agenda/view/$pid/$userId/$start/$end/1") ?>
+			<?php endif ?>
 		</td>
 	</tr>
 </table>

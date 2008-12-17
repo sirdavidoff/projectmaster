@@ -4,7 +4,7 @@ class Sector extends AppModel
 {
 	var $name = 'Sector';
 	
-	function generateNameList($col = 'name', $orderBy = 'id ASC', $conditions = null)
+	function generateNameList($col = 'name', $orderBy = 'ordering, name', $conditions = null)
 	{
 		$result = parent::generateNameList($col, $orderBy, $conditions);
 		

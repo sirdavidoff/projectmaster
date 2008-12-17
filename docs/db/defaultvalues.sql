@@ -1,54 +1,54 @@
 insert into contacttypes values ('', 'Opener');
 insert into contacttypes values ('', 'Buyer');
 insert into contacttypes values ('', 'Other');
-	
+
 insert into markets values ('', 'A');
 insert into markets values ('', 'B');
 insert into markets values ('', 'C');
 insert into markets values ('', 'D');
-	
-insert into sectors values ('', 'Government');
-insert into sectors values ('', 'Energy');
-insert into sectors values ('', 'Communication');
-insert into sectors values ('', 'IT & Electronics');
-insert into sectors values ('', 'Transport/Logisitics');
-insert into sectors values ('', 'Infrastructure');
-insert into sectors values ('', 'Tourism');
-insert into sectors values ('', 'Banking & Finance');
-insert into sectors values ('', 'Industry');
-insert into sectors values ('', 'Media');
-insert into sectors values ('', 'Shipping');
-insert into sectors values ('', 'Real Estate/Construction');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Agriculture');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Institutions');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Utilities');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Education');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Various');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Holding');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Natural Resources');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Defence');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Pharmaceuticals');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Leisure');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Trading');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Services');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Business');
-INSERT INTO `sectors` (`id`, `name`) VALUES (NULL, 'Healthcare');
-insert into sectors values ('', 'Other');
+
+insert into sectors values ('', 'Government', '1');
+INSERT INTO `sectors` VALUES (NULL, 'Institutions', '2');
+insert into sectors values ('', 'Energy', '10');
+insert into sectors values ('', 'Communication', '10');
+insert into sectors values ('', 'IT & Electronics', '10');
+insert into sectors values ('', 'Transport/Logisitics', '10');
+insert into sectors values ('', 'Infrastructure', '10');
+insert into sectors values ('', 'Tourism', '10');
+insert into sectors values ('', 'Banking & Finance', '10');
+insert into sectors values ('', 'Industry', '10');
+insert into sectors values ('', 'Media', '10');
+insert into sectors values ('', 'Shipping', '10');
+insert into sectors values ('', 'Real Estate/Construction', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Agriculture', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Utilities', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Education', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Various', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Holding', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Natural Resources', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Defence', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Pharmaceuticals', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Leisure', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Trading', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Services', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Business', '10');
+INSERT INTO `sectors` VALUES (NULL, 'Healthcare', '10');
+insert into sectors values ('', 'Other', '1000');
 UPDATE `sectors` SET `id` = 0 WHERE `name` = "Other";
-	
+
 insert into statuses values ('', 'Negative');
 insert into statuses values ('', 'Unopened');
 insert into statuses values ('', 'Open');
 insert into statuses values ('', 'Follow-up');
 insert into statuses values ('', 'Positive');
-	
+
 insert into media values ('', 'Fortune', 'IPS');
 insert into media values ('', 'Newsweek', 'MediaLinks');
 insert into media values ('', 'El Mundo', 'BBVision');
-	
+
 insert into project_statuses values ('', 'Open');
 insert into project_statuses values ('', 'Closed');
-	
+
 insert into roles values ('', 'Director');
 insert into roles values ('', 'Co-director');
 insert into roles values ('', 'Coordinator');

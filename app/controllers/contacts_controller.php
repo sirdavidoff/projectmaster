@@ -156,11 +156,12 @@ class ContactsController extends AppController
 				$orderCode = "contacttype_id ASC, market_id ASC, status_id DESC, sector_id ASC"; break;
 			case 'sector':
 			default:
-				$orderCode = "sector_id ASC, status_id DESC, contacttype_id ASC, market_id ASC"; break;
+				$orderCode = "Sector.ordering, Sector.name, status_id DESC, contacttype_id ASC, market_id ASC"; break;
 		}
 		
 		//$this->Contact->restrict(Array('Market', 'Contacttype', 'Sector', 'Status', 'Meeting.id'));
 		$this->set('contacts', $this->Contact->findAll("project_id = '$pid'", null, $orderCode));
+		$this->setExtraData($pid);
 		$this->set('pid', $pid);
 		$this->set('order', $order);
 		$this->pageTitle = "All Contacts";

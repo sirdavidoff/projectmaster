@@ -2,7 +2,6 @@ BUGS
 
 Timezones not supported
 Print view doesn't include completed actions
-When creating a new contact, only check if it already exists in the current project
 Can't change contact status in IE6
 Change past activity summaries to use the status at the time
 Check that changing status to 'positive' is actually shown on the activity summary
@@ -14,7 +13,6 @@ Check meeting date validation - something may be missing
 
 TWEAKS
 
-When showing the agenda page, only show that person's actions by default?
 Add 'assistant' to the project roles
 Take out revenue and growth fields
 Order contacts by sector by default, with Govt and Insts first and Other last

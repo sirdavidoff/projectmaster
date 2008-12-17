@@ -1,6 +1,6 @@
 <tr>
 	<td valign="top" style="width:60px" class="listRow status<?php echo $contact['Status']['id'] ?>">
-		<?php echo $contact['Status']['name'] ?>
+		<?php echo $ajaxs->editable($contact['Contact']['id'], $contact['Status']['name'], 'status_id', 'Contact', 'contacts', 'span', array('collection' => $statusList)) ?>
 	</td>
 	<td valign="top" class="listRow">
 		<?php echo $html->link($contact['Contact']['name'], '/contacts/view/' . $contact['Contact']['id']) ?>

@@ -54,7 +54,7 @@ class AgendaComponent extends Object
 	{
 		$conditions = "Action.completed = 0 AND Action.deadline_date >= '$start' AND Action.deadline_date <= '$end'";
 		if($pid) $conditions .= " AND (Contact.project_id = '$pid')";
-		if($userId) $conditions .= " AND (Action.user_id = '$userId')" /*" OR Action.user_id = 0)"*/;
+		if($userId) $conditions .= " AND (Action.user_id = '$userId' OR Action.user_id = 0)";
 		return $this->controller->Contact->Action->findAll($conditions, null, "deadline_date ASC, deadline_time ASC");
 	}
 	
@@ -62,7 +62,7 @@ class AgendaComponent extends Object
 	{
 		$conditions = "Action.completed = 0 AND Action.deadline_date < '".date('Y-m-d')."'";
 		if($pid) $conditions .= " AND (Contact.project_id = '$pid')";
-		if($userId) $conditions .= " AND (Action.user_id = '$userId')" /*" OR Action.user_id = 0)"*/;
+		if($userId) $conditions .= " AND (Action.user_id = '$userId' OR Action.user_id = 0)";
 		return $this->controller->Contact->Action->findAll($conditions, null, "Action.deadline_date ASC");
 	}
 	
@@ -70,7 +70,7 @@ class AgendaComponent extends Object
 	{
 		$conditions = "Action.completed = 0 AND Action.deadline_date IS NULL";
 		if($pid) $conditions .= " AND (Contact.project_id = '$pid')";
-		if($userId) $conditions .= " AND (Action.user_id = '$userId')" /*" OR Action.user_id = 0)"*/;
+		if($userId) $conditions .= " AND (Action.user_id = '$userId' OR Action.user_id = 0)";
 		return $this->controller->Contact->Action->findAll($conditions, null, "Action.created ASC");
 	}
 	
