@@ -1,3 +1,6 @@
+<?php print date('Y-m-d H:i:s', gmmktime()) ?>
+
+
 <?php echo $forms->includeCalendar() ?>
 
 <?php echo $this->renderElement('../contacts/contact_header') ?>

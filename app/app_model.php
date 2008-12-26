@@ -446,6 +446,16 @@ class AppModel extends Model{
 			
 			$userId = $this->controller->Cauth->user('id');
 
+			if($this->hasField('created'))
+			{
+				$this->saveField('created', date('Y-m-d H:i:s', gmmktime()));
+			}
+			
+			if($this->hasField('updated'))
+			{
+				$this->saveField('updated', date('Y-m-d H:i:s', gmmktime()));
+			}
+
 			if($userId)
 			{
 				if($created && $this->hasField('created_by'))
