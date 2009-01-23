@@ -446,15 +446,17 @@ class AppModel extends Model{
 			
 			$userId = $this->controller->Cauth->user('id');
 
-			if($this->hasField('created'))
+			// Cake saves these fields automatically, but in local time rather than GMT
+			// time, so here we save them in GMT
+			/*if($this->hasField('created'))
 			{
-				$this->saveField('created', date('Y-m-d H:i:s', gmmktime()));
+				$this->saveField('created', date('Y-m-d H:i:s', time() - date("Z")));
 			}
 			
 			if($this->hasField('updated'))
 			{
-				$this->saveField('updated', date('Y-m-d H:i:s', gmmktime()));
-			}
+				$this->saveField('updated', date('Y-m-d H:i:s', time() - date("Z")));
+			}*/
 
 			if($userId)
 			{

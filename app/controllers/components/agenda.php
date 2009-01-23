@@ -76,7 +76,7 @@ class AgendaComponent extends Object
 	
 	function getMeetings($pid, $start, $end, $userId)
 	{
-		if($userId) 
+		/*if($userId) 
 		{
 			$pClause = '0';
 			$pids = $this->controller->getUserProjects($userId);
@@ -89,9 +89,9 @@ class AgendaComponent extends Object
 				}
 				$pClause .= '0)';
 			}
-		} else {
+		} else {*/
 			$pClause = "Contact.project_id = '$pid'";
-		}
+		//}
 		
 		return $this->controller->Contact->Meeting->findAll("$pClause AND Meeting.date >= '$start' AND Meeting.date <= '$end'", null, "date ASC, time ASC");
 	}

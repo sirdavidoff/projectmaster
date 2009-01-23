@@ -75,7 +75,7 @@ class ActionsController extends AppController
 		
 		$this->Action->id = $id;
 		$this->Action->saveField('completed', 1);
-		$this->Action->saveField('completed_at', date('Y-m-d H:i:s'));
+		$this->Action->saveField('completed_at', date('Y-m-d H:i:s', time() - date("Z")));
 		if($this->Cauth->user('id'))
 		{
 			$this->Action->saveField('completed_by', $this->Cauth->user('id'));

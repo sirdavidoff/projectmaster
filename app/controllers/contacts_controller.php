@@ -258,7 +258,7 @@ class ContactsController extends AppController
 		if($modelName == 'Contact' && $fieldName == 'status_id')
 		{
 			$this->ContactStatusChange->create();
-			$data = Array('contact_id' => $id, 'status_id' => $this->params['form']['value'], 'changed_at' => date('Y-m-d H:i:s'));
+			$data = Array('contact_id' => $id, 'status_id' => $this->params['form']['value'], 'changed_at' => date('Y-m-d H:i:s', time() - date("Z")));
 			$this->ContactStatusChange->save($data);
 		}
 		

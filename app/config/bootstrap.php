@@ -42,5 +42,8 @@
  * $controllerPaths = array('this path to controllers', 'second full path to controllers', 'etc...');
  *
  */
+
+date_default_timezone_set('GMT');
+
 //EOF
 ?>
