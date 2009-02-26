@@ -4,6 +4,10 @@ class TeamMember extends AppModel
 {
 	var $name = 'TeamMember';
 	
+	// This var tells the system what it should look for when making lists of all the records, etc
+	// used in AppModel::saveField()
+	var $mainField = 'unique_name';
+	
 	var $belongsTo = array('User' => array('className' => 'User', 'foreignKey' => 'user_id'),
 						   'Role' => array('className' => 'Role', 'foreignKey' => 'role_id'));
 	
@@ -58,6 +62,21 @@ class TeamMember extends AppModel
 		$conditions = "(" . $conditions . ") AND project_id = '$projectId'";
 		
 		return $this->findAll($conditions, null, "status DESC, role_id ASC");
+	}
+	
+	/* Same as generateTeamUserList but adds 'no-one' on the end */
+	function generateAssignedUserList($pid, $col = 'unique_name', $orderBy = 'status DESC, role_id ASC', $conditions = null)
+	{
+		$users = $this->generateTeamUserList($pid, $col, $orderBy, "project_id = '$pid'");
+		$users[0] = "no-one";
+		
+		return $users;
+	}
+	
+	/* Returns a list of all the team members with their team member ids as the keys */
+	function generateTeamUserList($pid, $col = 'unique_name', $orderBy = 'status DESC, role_id ASC', $conditions = null)
+	{
+		return parent::generateNameList($col, $orderBy, "project_id = '$pid'");
 	}
 	
 	function generateNameList($pid, $col = 'unique_name', $orderBy = 'status DESC, role_id ASC', $conditions = null)

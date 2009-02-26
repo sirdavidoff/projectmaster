@@ -2,6 +2,7 @@
 
 <?php echo $forms->create('Contact', array('action' => "add/$pid")) ?>
 <?php echo $forms->hidden("Contact.project_id", array("value" => $pid)) ?>
+<?php echo $forms->hidden("Contact.assigned_to") ?>
 
 <table  cellspacing="0" cellpadding="0" style="width:500px">
 	<tr>
@@ -69,7 +70,7 @@
 			<?php echo $forms->error('Contact.email') ?>
 		</td>
 	</tr>
-	<tr>
+	<!--<tr>
 		<td valign="top" colspan="2" style="width:50%">
 			<div class="formElementTitle"><?php echo "Revenue (last year)" ?></div>
 			<?php echo $forms->text('Contact.revenue', array('size' => '40'))?>
@@ -80,7 +81,7 @@
 			<?php echo $forms->text('Contact.growth', array('size' => '40'))?>
 			<?php echo $forms->error('Contact.growth') ?>
 		</td>
-	</tr>
+	</tr>-->
 </table>
 
 <div class="formElementTitle" style="width:500px" align="right">

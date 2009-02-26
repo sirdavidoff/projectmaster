@@ -18,7 +18,6 @@ class ContactsController extends AppController
 
 	var $redirectSafe = array('index', 'view', 'listAll');
 
-
 	
 	function add($pid = null)
 	{		
@@ -50,6 +49,9 @@ class ContactsController extends AppController
 			$this->data['Contact']['contacttype_id'] = 2; // Contratante
 			$this->data['Contact']['market_id'] = 1; // Market A
 			$this->data['Contact']['status_id'] = 3; // Open
+			$res = $this->Contact->Assignee->find(array('project_id' => $pid, 'user_id' => $this->Cauth->user('id')), array('id')); 
+			if(isset($res['TeamMember']['id']))
+				$this->data['Contact']['assigned_to'] = $res['TeamMember']['id']; // Assign the new contact to the current user
 		}	
 		
 		if(!$pid){
@@ -63,19 +65,26 @@ class ContactsController extends AppController
 	}
 	
 	
+	
 	function setExtraData($pid)
 	{
 		$this->set('marketList', $this->Contact->Market->generateNameList());
 		$this->set('contacttypeList', $this->Contact->Contacttype->generateNameList());
 		$this->set('sectorList', $this->Contact->Sector->generateNameList());
-		$this->set('statusList', $this->Contact->Status->generateNameList());
+		$statusList = $this->Contact->Status->generateNameList();
+		$this->set('statusList', $statusList);
 		//$this->set('userList', $this->Contact->Action->User->generateNameList());
 		$this->set('userList', $this->TeamMember->generateCurrentUserList($pid));
+		$assignedUserList = $this->TeamMember->generateAssignedUserList($pid);
+		$this->set('assignedUserList', $assignedUserList);
+		$teamUserList = $this->TeamMember->generateTeamUserList($pid);
+		$this->set('teamUserList', $teamUserList);
 		$this->set('allUserList', $this->TeamMember->generateNameList($pid));
 		$contacts = $this->Contact->generateNameList('name', 'Contact.name', "Contact.project_id = '$pid'");
 		$this->set('contactList', $contacts);
-		$this->set('openerContactList', $this->otherContactList($contacts, 'Opener'));				
-		$this->set('openeeContactList', $this->otherContactList($contacts, 'Openee'));				
+		$this->set('openerContactList', $this->otherContactList($contacts, 'Opener'));
+		$this->set('openeeContactList', $this->otherContactList($contacts, 'Openee'));
+		$this->set('multiActions', $this->getMultiActions($assignedUserList, $statusList));
 	}
 	
 	/**
@@ -133,21 +142,22 @@ class ContactsController extends AppController
 
 
 	
-	function delete($id = null) 
+	function delete($id = null, $batch = false) 
 	{	
 		$data = $this->Contact->find($id, array('name', 'project_id'), null, -1);
 		$pid = $data['Contact']['project_id'];
 
 		if ($this->Contact->del($id))
 		{
-			$this->flash("'".$data['Contact']['name']."' has been deleted.", "listAll/$pid");
+			if(!$batch) $this->flash("'".$data['Contact']['name']."' has been deleted.", "listAll/$pid");
 		} else {
 			$this->flashError('There was an error deleting the note.', $this->referer());
 		}
 	}
 	
 	
-	function listAll($pid, $order = 'sector')
+	
+	function listAll($pid, $order = 'sector', $assignee = 'any')
 	{
 		switch ($order) {
 			case 'status':
@@ -159,12 +169,39 @@ class ContactsController extends AppController
 				$orderCode = "Sector.ordering, Sector.name, status_id DESC, contacttype_id ASC, market_id ASC"; break;
 		}
 		
+		// Get the IDs of all the team members of this project
+		$members = $this->Contact->Assignee->generateTeamUserList($pid);
+		
+		switch ($assignee) {
+			case 'any':
+				$whereClause = "1"; 
+				$titleInsert = "";
+				break;
+			case 'noone':
+				$whereClause = "";
+				if(isset($members)) 
+				{
+					foreach($members as $key => $value) 
+					{
+						$whereClause .= "Contact.assigned_to != '$key' AND ";
+					}
+				}
+				$whereClause .= "1";
+				$titleInsert = "Unassigned";
+				break;
+			default:
+				$whereClause = "Contact.assigned_to = '$assignee'";
+				$titleInsert = $members[$assignee] . "'s";
+		}
+		
 		//$this->Contact->restrict(Array('Market', 'Contacttype', 'Sector', 'Status', 'Meeting.id'));
-		$this->set('contacts', $this->Contact->findAll("project_id = '$pid'", null, $orderCode));
+		$this->set('contacts', $this->Contact->findAll("Contact.project_id = '$pid' AND ($whereClause)", null, $orderCode));
 		$this->setExtraData($pid);
 		$this->set('pid', $pid);
 		$this->set('order', $order);
-		$this->pageTitle = "All Contacts";
+		$this->set('assignee', $assignee);
+		
+		$this->pageTitle = "All $titleInsert Contacts";
 	}
 	
 	
@@ -173,11 +210,11 @@ class ContactsController extends AppController
 	{
 		switch ($type) {
 			case 'active':
-				$whereCode = "project_id = '$pid' AND status_id > 2";
+				$whereCode = "Contact.project_id = '$pid' AND status_id > 2";
 				break;
 			case 'all':
 			default:
-				$whereCode = "project_id = '$pid'";
+				$whereCode = "Contact.project_id = '$pid'";
 				break;
 		}
 		
@@ -190,6 +227,82 @@ class ContactsController extends AppController
 	}
 	
 	
+	
+	function getMultiActions($teamUserList, $statusList)
+	{
+		$actions = array();
+		
+		if(count($teamUserList) > 0) 
+		{
+			foreach($teamUserList as $id => $name) 
+			{
+				$actions["1_" . $id] = "Assign to $name";
+			}
+		}
+		
+		if(count($statusList) > 0) 
+		{
+			foreach($statusList as $id => $name) 
+			{
+				$actions["2_" . $id] = "Status to $name";
+			}
+		}
+		
+		$actions['3'] = "Delete";
+		
+		return $actions;
+	}
+	
+	
+	/**
+	 * Performs an action on multiple contacts
+	 *
+	 * @return void
+	 * @author David Roberts
+	 */
+	function multi()
+	{
+		$action = $this->data['Contact']['multiAction'];
+		if(!$action) $this->flashError('You must select an action to perform from the drop-down box.', $this->referer());
+		 
+		if(!isset($this->data['Contact']['ids']) || !count($this->data['Contact']['ids'] <= 0)) $this->flashError('You must select at least one contact using the checkboxes on the right.', $this->referer()); 
+		$ids = $this->data['Contact']['ids'];
+		
+		$action = split('_', $action);
+		
+		switch ($action[0]) {
+			case '1':
+				foreach($ids as $id) 
+				{
+					$this->params['form']['value'] = $action[1];
+					$this->saveField("Contact", "assigned_to", $id, false, true);
+				}
+				$this->flash(count($ids) . " contacts have been assigned.");
+				break;
+			
+			case '2':
+				foreach($ids as $id) 
+				{
+					$this->params['form']['value'] = $action[1];
+					$this->saveField("Contact", "status_id", $id, false, true);
+				}
+				$this->flash(count($ids) . " statuses have been changed.");
+				break;
+				
+			case '3':
+				foreach($ids as $id) 
+				{
+					$this->delete($id, true);
+				}
+				$this->flash(count($ids) . " contacts have been deleted.");
+				break;
+		}
+
+		$this->redirect($this->referer(), null, true);
+		
+	}
+
+
 	
 	
 	function search($pid, $query = null)
@@ -253,8 +366,9 @@ class ContactsController extends AppController
 		$this->Contact->habtmAdd('Openee', $subjectId, $openerId);
 	}
 	
-	function saveField($modelName, $fieldName, $id, $isForeignKey = false)
+	function saveField($modelName, $fieldName, $id, $isForeignKey = false, $batch = false)
 	{
+		
 		if($modelName == 'Contact' && $fieldName == 'status_id')
 		{
 			$this->ContactStatusChange->create();
@@ -262,7 +376,7 @@ class ContactsController extends AppController
 			$this->ContactStatusChange->save($data);
 		}
 		
-		parent::saveField($modelName, $fieldName, $id, $isForeignKey);
+		parent::saveField($modelName, $fieldName, $id, $isForeignKey, $batch);
 		
 	}
 

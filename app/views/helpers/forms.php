@@ -151,6 +151,29 @@ class FormsHelper extends FormHelper {
 		return $code . $js;
 	}
 	
+	/**
+	 * Similar to checkbox() but appends '[]' onto the name for multiple values and doesn't produce the hidden
+	 * field with value 0
+	 *
+	 * @param string $fieldName 
+	 * @param string $options 
+	 * @return void
+	 * @author David Roberts
+	 */
+	function multiCheckbox($fieldName, $options = array())
+	{
+
+		$options = $this->__initInputField($fieldName, $options);
+		$this->__secure();
+		
+		$options['name'] .= "[]";
+		$options['id'] .= "_" . $options['value'];
+
+		$output = sprintf($this->Html->tags['checkbox'], $options['name'], $this->_parseAttributes($options, array('name'), null, ' '));
+		return $this->output($output);
+	}
+	
+	
 	function includeCalendar()
 	{
 		return $this->Javascript->link('calendar_stripped.js') . $this->Javascript->link('calendar-en.js') . $this->Javascript->link('calendar-setup.js');

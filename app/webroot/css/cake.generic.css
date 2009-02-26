@@ -525,9 +525,15 @@ input.editor_ok_button {
 	padding: 2px;
 }
 
+.h1b .inplaceeditor-empty {
+    color: #003d4c;
+}
+
 .inplaceeditor-empty, .empty {
     color: #BBB;
 }
+
+
 
 .inlineEdit {
 	cursor: text;
@@ -1058,5 +1064,13 @@ input.editor_ok_button {
 
 .addMemberSelect {
 	width: 100%;
+}
+
+.multiCheck {
+	margin: 0px !important;
+}
+
+.selected {
+	background: #EFEFEF;
 }
 

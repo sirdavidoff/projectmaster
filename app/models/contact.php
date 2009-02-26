@@ -24,7 +24,8 @@ class Contact extends AppModel {
 						'Sector' => array('className' => 'Sector', 'foreignKey' => 'sector_id'),
 						'Status' => array('className' => 'Status', 'foreignKey' => 'status_id'),
 						'Creator' => array('className' => 'User', 'foreignKey' => 'created_by'),
-						'Updater' => array('className' => 'User', 'foreignKey' => 'updated_by'));
+						'Updater' => array('className' => 'User', 'foreignKey' => 'updated_by'),
+						'Assignee' => array('className' => 'TeamMember', 'foreignKey' => 'assigned_to'));
 						
 	var $hasMany = array('Contract' => array('className' => 'Contract', 
 										 'order' => 'signed_on DESC',

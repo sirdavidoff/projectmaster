@@ -13,6 +13,8 @@ Check meeting date validation - something may be missing
 
 TWEAKS
 
+Let a contact be assigned to a person, and change the list of contacts to filter by that person
+Generate a profile of the people met, ordered by sector and market
 Add 'assistant' to the project roles
 Take out revenue and growth fields
 Order contacts by sector by default, with Govt and Insts first and Other last

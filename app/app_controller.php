@@ -382,26 +382,43 @@ class AppController extends Controller
 	 * @author David Roberts
 	 */
 	
-	function saveField($modelName, $fieldName, $id, $isForeignKey = false)
+	function saveField($modelName, $fieldName, $id, $isForeignKey = false, $batch = false)
 	{
 		$model = $this->$modelName;
 		
 		$model->id = $id;
 		$model->saveField($fieldName, $this->params['form']['value']);
 		
-		// If we're saving a foreign key, we return the name it references
-		// rather than the ID itself
-		if($isForeignKey)
-		{
-			$otherModelName = ucwords(substr($fieldName, 0, -3));
-			$otherModel = $model->$otherModelName;
-			$data = $otherModel->find($this->params['form']['value'], array('name'), null, -1);
-			print $data[$otherModelName]['name'];
-		} else {
-			echo $this->params['form']['value'];
-		}
 		
-		exit();
+		if(!$batch) 
+		{
+			// If we're saving a foreign key, we return the name it references
+			// rather than the ID itself
+			if($isForeignKey)
+			{
+				$otherModelName = ucwords(substr($fieldName, 0, -3));
+				foreach($model->belongsTo as $link) 
+				{
+					if($link['foreignKey'] == $fieldName) $otherModelName = $link['className'];
+				}
+
+				$otherModel = $this->getModel($otherModelName);
+			
+				if(isset($otherModel->mainField)) 
+				{
+					$nameField = $otherModel->mainField;
+				} else {
+					$nameField = 'name';
+				}
+
+				$data = $otherModel->find($this->params['form']['value'], array($nameField), null, -1);			
+				print $data[$otherModelName][$nameField];
+			} else {
+				echo $this->params['form']['value'];
+			}
+
+			exit();
+		}
 	}
 	
 	/**

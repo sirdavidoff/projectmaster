@@ -33,6 +33,11 @@
 			<?php if (!$print): ?>
 				<h1><?php echo $ajaxs->editable($this->data['Contact']['id'], $this->data['Status']['name'], 'status_id', 'Contact', 'contacts', 'span', array('collection' => $statusList)) ?></h1>
 			<?php endif ?>
+			<div class="h1b">
+				Assigned to
+				<?php echo $ajaxs->editable($this->data['Contact']['id'], $this->data['Assignee']['unique_name'], 'assigned_to', 'Contact', 'contacts', 'span', array('collection' => $assignedUserList, 'emptyText' => "'no-one'")) ?>
+			</div>
+			
 		</td>
 	</tr>
 </table>

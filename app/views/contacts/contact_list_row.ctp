@@ -4,6 +4,18 @@
 	</td>
 	<td valign="top" class="listRow">
 		<?php echo $html->link($contact['Contact']['name'], '/contacts/view/' . $contact['Contact']['id']) ?>
+		<?php if (count($contact['Action'] > 0)): ?>
+			<?php $actionFound = false ?>
+			<?php foreach ($contact['Action'] as $action): ?>
+				<?php if (!$actionFound && $action['completed'] == 0): ?>
+					<span class="printContent0">
+						- <?php echo substr($action['text'], 0, 70) ?>
+						<?php if (strlen($action['text']) > 70) echo "..." ?>
+					</span>
+					<?php $actionFound = true ?>
+				<?php endif ?>
+			<?php endforeach ?>
+		<?php endif ?>
 	</td>
 	<td valign="middle" class="listRow">
 		<?php echo $this->renderElement('../contacts/meeting_indicator', Array('contact' => $contact)) ?>
@@ -22,4 +34,7 @@
 			<?php echo $contact['Sector']['name'] ?>
 		</td>
 	<?php endif ?>
+	<td valign="top" style="width:15px;" class="listRow">
+		<?php echo $forms->multiCheckBox('ids', array('value' => $contact['Contact']['id'], 'class' => 'multiCheck', 'onchange' => "javascript:(toggleBackground(this))")) ?>
+	</td>
 </tr>
